@@ -1,5 +1,10 @@
 <template>
   <div class="item-section">
+    <ItemCarousel
+      v-if="isCarouselOpen"
+      :carouselItem="itemImages"
+      @closeCarousel="closeCarousel"
+    />
     <div class="carousel">
       <div>
         <img
@@ -14,8 +19,8 @@
           :key="item.id"
           class="carousel__rest-image"
           :src="getImageUrl(item.img)"
-          @click="setActiveImage(item.img)"
-          @mouseover="setActiveImage(item.img)"
+          @click="setActiveImage"
+          @mouseover="hoverActiveImage(item.img)"
           alt=""
         />
       </div>
@@ -42,7 +47,11 @@
           <p @click="addCounter()" class="item__counter-add">+</p>
         </div>
         <button class="item__cta">
-          <img src="../assets/images/card-icon-white.svg" alt="" />
+          <img
+            @click="addItemToBasket"
+            src="../assets/images/card-icon-white.svg"
+            alt=""
+          />
           Add to card
         </button>
       </div>
@@ -51,10 +60,15 @@
 </template>
 
 <script>
+import ItemCarousel from "@/components/ItemCarousel.vue";
 export default {
+  components: {
+    ItemCarousel,
+  },
   data() {
     return {
       counter: 0,
+      isCarouselOpen: false,
       activeImage: "shoe04.jpg",
       itemImages: [
         {
@@ -78,8 +92,12 @@ export default {
     },
   },
   methods: {
+    addItemToBasket() {},
     addCounter() {
       this.counter++;
+    },
+    closeCarousel() {
+      this.isCarouselOpen = false;
     },
     removeCounter() {
       if (this.counter > 0) this.counter--;
@@ -87,7 +105,11 @@ export default {
     getImageUrl(pic) {
       return require("../assets/images/sneakers/" + pic);
     },
-    setActiveImage(pic) {
+    setActiveImage() {
+      this.isCarouselOpen = true;
+      console.log(this.isCarouselOpen);
+    },
+    hoverActiveImage(pic) {
       this.activeImage = pic;
     },
   },
@@ -249,6 +271,7 @@ export default {
     &:hover {
       border-radius: 18px;
       border: 3px #ff7e1b solid;
+      opacity: 0.6;
     }
   }
 }

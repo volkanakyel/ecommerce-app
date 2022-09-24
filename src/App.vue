@@ -19,7 +19,6 @@ export default {
 <style lang="scss">
 .ecommerce-container {
   max-width: 1110px;
-  width: 95%;
   margin: 0 auto;
   color: black;
 }
