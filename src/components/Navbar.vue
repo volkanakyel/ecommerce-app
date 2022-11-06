@@ -48,15 +48,16 @@
           src="../assets/images/user-profile.jpeg"
           alt="profile-user"
         />
-        <UserCard :cartActive="cartActive" />
       </div>
     </div>
+    <UserCard :cartActive="cartActive" />
     <hr class="navbar__separator" />
   </div>
 </template>
 
 <script>
 import UserCard from "@/components/UserCard.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "HeaderNavbar",
   components: {
@@ -67,6 +68,9 @@ export default {
       cartActive: false,
       menuActive: false,
     };
+  },
+  computed: {
+    ...mapGetters("cart", ["isCartVisible"]),
   },
   directives: {
     clickOutside: {
@@ -84,11 +88,12 @@ export default {
     },
   },
   methods: {
+    ...mapActions("cart", ["openCart", "closeCart"]),
     showCart() {
-      this.cartActive = !this.cartActive;
+      this.isCartVisible ? this.closeCart() : this.openCart();
     },
     clickedOutside() {
-      this.cartActive = false;
+      this.closeCart();
     },
     closeMenuOutside() {
       this.menuActive = false;
@@ -99,7 +104,11 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
   padding: 24px;
   &__container {
     display: flex;

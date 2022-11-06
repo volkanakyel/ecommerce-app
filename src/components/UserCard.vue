@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container" :class="{ active: cartActive }">
+  <div class="card-container" :class="{ active: isCartVisible }">
     <p class="card-container__title">Cart</p>
     <hr class="card-container__separator" />
     <div class="card-container__content">
@@ -31,14 +31,8 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  props: {
-    cartActive: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
-    ...mapGetters("cart", ["getItemNumber"]),
+    ...mapGetters("cart", ["getItemNumber", "isCartVisible"]),
   },
 };
 </script>

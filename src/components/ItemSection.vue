@@ -91,10 +91,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions("cart", ["addItemToCard"]),
+    ...mapActions("cart", ["addItemToCard", "openCart"]),
     addItemToBasket() {
-      this.addItemToCard(this.counter);
-      console.log(this.getItemNumber);
+      if (this.counter) {
+        console.log("hello");
+        this.addItemToCard(this.counter);
+        this.openCart();
+      }
     },
     addCounter() {
       this.counter++;
@@ -122,13 +125,13 @@ export default {
 <style lang="scss" scoped>
 .item-section {
   max-width: 1015px;
-  margin: 90px auto;
+  margin-top: 139px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 910px) {
     flex-direction: column;
-    margin: 0 auto;
+    margin-top: 98px;
   }
 }
 .item {
