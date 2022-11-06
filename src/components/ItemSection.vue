@@ -46,12 +46,8 @@
           <p style="font-size: 16px; font-weight: 700">{{ counter }}</p>
           <p @click="addCounter()" class="item__counter-add">+</p>
         </div>
-        <button class="item__cta">
-          <img
-            @click="addItemToBasket"
-            src="../assets/images/card-icon-white.svg"
-            alt=""
-          />
+        <button class="item__cta" @click="addItemToBasket">
+          <img src="../assets/images/card-icon-white.svg" alt="" />
           Add to card
         </button>
       </div>
@@ -61,6 +57,7 @@
 
 <script>
 import ItemCarousel from "@/components/ItemCarousel.vue";
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   components: {
     ItemCarousel,
@@ -87,12 +84,18 @@ export default {
     };
   },
   computed: {
+    ...mapState("cart", ["item"]),
+    ...mapGetters("cart", ["getItemNumber"]),
     getActiveImage() {
       return require("../assets/images/sneakers/" + this.activeImage);
     },
   },
   methods: {
-    addItemToBasket() {},
+    ...mapActions("cart", ["addItemToCard"]),
+    addItemToBasket() {
+      this.addItemToCard(this.counter);
+      console.log(this.getItemNumber);
+    },
     addCounter() {
       this.counter++;
     },
@@ -205,6 +208,7 @@ export default {
     }
   }
   &__counter {
+    user-select: none;
     display: flex;
     background: #f6f8fd;
     align-items: center;

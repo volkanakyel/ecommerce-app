@@ -48,9 +48,7 @@
           src="../assets/images/user-profile.jpeg"
           alt="profile-user"
         />
-        <div class="card-container">
-          <UserCard :cartActive="cartActive" />
-        </div>
+        <UserCard :cartActive="cartActive" />
       </div>
     </div>
     <hr class="navbar__separator" />

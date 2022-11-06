@@ -2,31 +2,43 @@
   <div class="card-container" :class="{ active: cartActive }">
     <p class="card-container__title">Cart</p>
     <hr class="card-container__separator" />
-    <p v-if="false" class="card-container__message">You cart is empty.</p>
-    <div class="card-container__list">
-      <div class="card-container__item-added" style="display: flex">
-        <img src="../assets/images/sneakers/shoe01.jpg" width="50" alt="item" />
-        <div>
-          <p class="card-container__item-title">
-            Fall limited Edition Sneakers
-          </p>
-          <p style="display: inline; margin-right: 8px">$125.00 x 3</p>
-          <p style="display: inline; font-weight: 700">$375.00</p>
+    <div class="card-container__content">
+      <p v-if="!getItemNumber" class="card-container__message">
+        You cart is empty.
+      </p>
+      <div v-else class="card-container__list">
+        <div class="card-container__item-added" style="display: flex">
+          <img
+            src="../assets/images/sneakers/shoe01.jpg"
+            width="50"
+            alt="item"
+          />
+          <div>
+            <p class="card-container__item-title">
+              Fall limited Edition Sneakers
+            </p>
+            <p style="display: inline; margin-right: 8px">$125.00 x 3</p>
+            <p style="display: inline; font-weight: 700">$375.00</p>
+          </div>
+          <img src="../assets/images/bin-icon.svg" alt="" />
         </div>
-        <img src="../assets/images/bin-icon.svg" alt="" />
+        <button class="card-container__checkout-cta">Checkout</button>
       </div>
-      <button class="card-container__checkout-cta">Checkout</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   props: {
     cartActive: {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters("cart", ["getItemNumber"]),
   },
 };
 </script>
@@ -42,8 +54,6 @@ export default {
   width: 360px;
   border-radius: 12px;
   box-shadow: 0px 20px 50px -20px rgba(29, 32, 38, 0.503143);
-  transition: transform 0.5s;
-
   @media (max-width: 910px) {
     width: 96%;
     top: 90%;
@@ -54,7 +64,12 @@ export default {
   }
   &__message {
     text-align: center;
-    margin-top: 52px;
+  }
+  &__content {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &__item-added {
     display: flex;
