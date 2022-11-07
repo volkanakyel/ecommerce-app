@@ -108,7 +108,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background: #fff;
+  // background: #fff;
   padding: 24px;
   &__container {
     display: flex;

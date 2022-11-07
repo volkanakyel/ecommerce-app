@@ -1,6 +1,7 @@
 <template>
   <div class="item-section">
     <ItemCarousel
+      @clickedOutside="closeCarousel"
       v-if="isCarouselOpen"
       :carouselItem="itemImages"
       @closeCarousel="closeCarousel"
@@ -85,19 +86,18 @@ export default {
   },
   computed: {
     ...mapState("cart", ["item"]),
-    ...mapGetters("cart", ["getItemNumber"]),
+    ...mapGetters("cart", ["getItemNumber", "isCartVisible"]),
     getActiveImage() {
       return require("../assets/images/sneakers/" + this.activeImage);
     },
   },
   methods: {
     ...mapActions("cart", ["addItemToCard", "openCart"]),
-    addItemToBasket() {
-      if (this.counter) {
-        console.log("hello");
-        this.addItemToCard(this.counter);
-        this.openCart();
-      }
+    async addItemToBasket() {
+      this.addItemToCard(this.counter);
+      setTimeout(() => {
+        this.openCart(); // avoid click outside behavior
+      }, 0);
     },
     addCounter() {
       this.counter++;
@@ -113,7 +113,6 @@ export default {
     },
     setActiveImage() {
       this.isCarouselOpen = true;
-      console.log(this.isCarouselOpen);
     },
     hoverActiveImage(pic) {
       this.activeImage = pic;
