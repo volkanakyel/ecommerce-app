@@ -12,6 +12,9 @@ const mutations = {
   closeCart(state) {
     state.openCart = false;
   },
+  removeItemFromCart(state) {
+    state.item = 0;
+  },
 };
 const actions = {
   addItemToCard({ commit }, item) {
@@ -22,6 +25,9 @@ const actions = {
   },
   closeCart({ commit }) {
     commit("closeCart");
+  },
+  removeItemFromCart({ commit }) {
+    commit("removeItemFromCart");
   },
 };
 

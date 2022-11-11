@@ -58,6 +58,7 @@
 <script>
 import UserCard from "@/components/UserCard.vue";
 import { mapActions, mapGetters } from "vuex";
+import { clickOutside } from "@/directives/clickOutside";
 export default {
   name: "HeaderNavbar",
   components: {
@@ -72,21 +73,7 @@ export default {
   computed: {
     ...mapGetters("cart", ["isCartVisible"]),
   },
-  directives: {
-    clickOutside: {
-      bind(el, binding) {
-        el.__clickOutsideHandler__ = (event) => {
-          if (!(el === event.target || el.contains(event.target))) {
-            binding.value(event);
-          }
-        };
-        document.body, addEventListener("click", el.__clickOutsideHandler__);
-      },
-      unbind(el) {
-        document.body.removeEventListener("click", el.__clickOutsideHandler__);
-      },
-    },
-  },
+  directives: { clickOutside },
   methods: {
     ...mapActions("cart", ["openCart", "closeCart"]),
     showCart() {
@@ -108,7 +95,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  // background: #fff;
+  background: #fff;
   padding: 24px;
   &__container {
     display: flex;
@@ -149,7 +136,7 @@ export default {
     background: #fff;
     left: -110%;
     transition: 0.2s linear;
-    position: absolute;
+    position: fixed;
     font-size: 18px;
     font-weight: 700;
     top: 0;

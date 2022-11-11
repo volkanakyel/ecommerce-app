@@ -7,7 +7,7 @@
         You cart is empty.
       </p>
       <div v-else class="card-container__list">
-        <div class="card-container__item-added" style="display: flex">
+        <div class="card-container__item-added">
           <img
             src="../assets/images/sneakers/shoe01.jpg"
             width="50"
@@ -17,10 +17,14 @@
             <p class="card-container__item-title">
               Fall limited Edition Sneakers
             </p>
-            <p style="display: inline; margin-right: 8px">$125.00 x 3</p>
-            <p style="display: inline; font-weight: 700">$375.00</p>
+            <p class="card-container__item-number">$125.00 x 3</p>
+            <p class="card-container__item-price">$375.00</p>
           </div>
-          <img src="../assets/images/bin-icon.svg" alt="" />
+          <img
+            src="../assets/images/bin-icon.svg"
+            alt="remove-item"
+            @click="removeItemFromCart"
+          />
         </div>
         <button class="card-container__checkout-cta">Checkout</button>
       </div>
@@ -29,10 +33,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters("cart", ["getItemNumber", "isCartVisible"]),
+  },
+  methods: {
+    ...mapActions("cart", ["removeItemFromCart"]),
   },
 };
 </script>
@@ -74,6 +81,15 @@ export default {
   }
   &__item-title {
     color: #69707d;
+  }
+  &__item-number {
+    display: inline;
+    margin-right: 8px;
+  }
+
+  &__item-price {
+    display: inline;
+    font-weight: 700;
   }
   &__list {
     padding: 24px;

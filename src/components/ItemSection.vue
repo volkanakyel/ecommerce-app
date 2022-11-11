@@ -44,7 +44,7 @@
       <div class="item__shop-action">
         <div class="item__counter">
           <p @click="removeCounter()" class="item__counter-add">-</p>
-          <p style="font-size: 16px; font-weight: 700">{{ counter }}</p>
+          <p class="item__counter-value">{{ counter }}</p>
           <p @click="addCounter()" class="item__counter-add">+</p>
         </div>
         <button class="item__cta" @click="addItemToBasket">
@@ -221,6 +221,10 @@ export default {
     @media (max-width: 610px) {
       width: 100%;
     }
+  }
+  &__counter-value {
+    font-size: 16px;
+    font-weight: 700;
   }
   &__cta {
     display: flex;
